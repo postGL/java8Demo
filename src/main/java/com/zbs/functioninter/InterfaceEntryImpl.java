@@ -11,7 +11,7 @@ package com.zbs.functioninter;
 public class InterfaceEntryImpl implements InterfaceEntry {
     @Override
     public void simplePrint() {
-        System.out.println(this.getClass()+"函数式接口实现类simplePrint()");
+        System.out.println(this.getClass()+"接口实现类Impl，simplePrint()");
     }
 
 //    @Override

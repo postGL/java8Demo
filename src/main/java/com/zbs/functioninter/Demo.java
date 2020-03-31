@@ -11,7 +11,6 @@ package com.zbs.functioninter;
 public class Demo {
     public static void show(InterfaceEntry interfaceEntry){
         interfaceEntry.simplePrint();
-        System.out.println("函数式接口使用");
     }
 
     public static void main(String[] args) {
@@ -19,5 +18,20 @@ public class Demo {
         show(new InterfaceEntryImpl());
 
         //调用show()方法，参数是个接口，可以传递接口的匿名内部类
+        show(new InterfaceEntry() {
+            @Override
+            public void simplePrint() {
+                System.out.println("调用接口匿名内部类输出");
+            }
+        });
+
+        //调用show()方法，参数是个【函数式】接口，所以可以使用Lamdba表达式
+        show(()->{
+            System.out.println("函数式接口，使用Lamdba表达式输出。。。");
+        });
+
+        //简化Lamdba表达式
+        show(()-> System.out.println("函数式接口，使用[简化]Lamdba表达式输出。。。"));
+
     }
 }
