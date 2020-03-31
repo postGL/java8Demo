@@ -9,7 +9,7 @@ package com.zbs.functioninter;
  * 函数式接口的使用：一般可以作为参数和返回值使用
  */
 public class Demo {
-    public static void show(InterfaceEntry interfaceEntry){
+    public static void show(InterfaceEntry interfaceEntry) {
         interfaceEntry.simplePrint();
     }
 
@@ -26,12 +26,12 @@ public class Demo {
         });
 
         //调用show()方法，参数是个【函数式】接口，所以可以使用Lamdba表达式
-        show(()->{
+        show(() -> {
             System.out.println("函数式接口，使用Lamdba表达式输出。。。");
         });
 
         //简化Lamdba表达式
-        show(()-> System.out.println("函数式接口，使用[简化]Lamdba表达式输出。。。"));
+        show(() -> System.out.println("函数式接口，使用[简化]Lamdba表达式输出。。。"));
 
     }
 }
