@@ -6,7 +6,7 @@ package com.zbs.anonymityClass;
  * author: zbs
  * version: 1.0
  */
-public class Father {
+public abstract class Father {
     public void simplePrint() {
         System.out.println("我是父类");
     }
