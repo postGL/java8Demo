@@ -1,0 +1,124 @@
+匿名内部类接口实现
+
+1.匿名内部类 ：是内部类的简化写法。它的本质是一个 带具体实现的 父类或者父接口的 匿名的 子类对象。
+
+开发中，最常用到的内部类就是匿名内部类了。以接口举例，使用一个接口时，得做如下4步操作，
+
+1. 定义子类
+
+2. 重写接口中的方法
+
+3. 创建子类对象
+
+4. 调用重写后的方法
+
+如果接口的实现类（或者是父类的子类）只需要使用唯一的一次，
+
+那么这种情况下就可以省略掉该类的定义，而改为使用【匿名内部类】。
+
+ 
+
+匿名内部类的定义格式：
+
+接口名称 对象名 = new 接口名称() {
+
+    // 覆盖重写所有抽象方法
+
+};
+
+ 
+
+对格式“new 接口名称() {...}”进行解析：
+
+1. new代表创建对象的动作
+
+2. 接口名称就是匿名内部类需要实现哪个接口
+
+3. {...}这才是匿名内部类的内容
+
+举例代码：
+
+接口FlyAble
+public interface FlyAble {
+    public abstract void Fly();
+    public abstract void eat();
+}
+
+ 
+
+2. FiyAbleImpl类实现抽象方法
+
+package DemoTest.FlyAble;
+
+public class FlyAbleImpl implements FlyAble {
+    @Override
+    public void Fly() {
+        System.out.println("实现类的间接调用！");
+        System.out.println("心牵挂远方！");
+    }
+
+    @Override
+    public void eat() {
+        System.out.println("吃饭！");
+    }
+}
+
+ 
+
+3.InnerDome测试类
+public class InnerDome {
+    public static void main(String[] args) {
+        FlyAble fly = new FlyAble() {
+            @Override
+            public void Fly() {
+                System.out.println("用匿名对象直接调用接口！");
+                System.out.println("心已经飞过千里！");
+            }
+
+            @Override
+            public void eat() {
+                System.out.println("用匿名对象直接调用接口！");
+                System.out.println("吃好吃的！");
+            }
+        };
+        fly.Fly();
+        fly.eat();
+        System.out.println("=================");
+        FlyAbleImpl flyAble = new FlyAbleImpl();
+        flyAble.Fly();
+        flyAble.eat();
+    }
+}
+
+4.结果：                      
+
+用匿名对象直接调用接口！
+
+心已经飞过千里！
+
+用匿名对象直接调用接口！
+
+吃好吃的！
+
+=================
+
+实现类的间接调用！
+
+心牵挂远方！
+
+吃饭！
+
+3、注意事项:
+
+1. 匿名内部类，在【创建对象】的时候，只能使用唯一一次。
+
+如果希望多次创建对象，而且类的内容一样的话，那么就需要使用单独定义的实现类了。
+
+2. 匿名对象，在【调用方法】的时候，只能调用唯一一次。
+
+如果希望同一个对象，调用多次方法，那么必须给对象起个名字。
+
+3. 匿名内部类是省略了【实现类/子类名称】，但是匿名对象是省略了【对象名称】
+————————————————
+版权声明：本文为CSDN博主「DJyzh」的原创文章，遵循 CC 4.0 BY-SA 版权协议，转载请附上原文出处链接及本声明。
+原文链接：https://blog.csdn.net/qq_42672839/article/details/81834958
