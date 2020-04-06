@@ -25,13 +25,13 @@ public class Demo {
             }
         });
 
-        //调用show()方法，参数是个【函数式】接口，所以可以使用Lamdba表达式
+        //调用show()方法，参数是个【函数式】接口，所以可以使用Lambda表达式
         show(() -> {
-            System.out.println("函数式接口，使用Lamdba表达式输出。。。");
+            System.out.println("函数式接口，使用Lambda表达式输出。。。");
         });
 
-        //简化Lamdba表达式
-        show(() -> System.out.println("函数式接口，使用[简化]Lamdba表达式输出。。。"));
+        //简化Lambda表达式
+        show(() -> System.out.println("函数式接口，使用[简化]Lambda表达式输出。。。"));
 
     }
 }
