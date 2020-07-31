@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * description: StreamTest
@@ -40,17 +42,46 @@ public class StreamTest {
         //stringCollection.stream().sorted(String::compareTo).forEach(System.out::println);
 
         //Map 映射转换对象
-        //stringCollection.stream().map(s -> s + "_zbs").forEach(System.out::println);
+        stringCollection.stream().map(s -> s + "_zbs").forEach(System.out::println);
+        stringCollection.stream().map(s -> s + "_zbs").collect(Collectors.toList()).forEach(System.out::println);
 
+        //Match 匹配
+//        testMatch(stringCollection);
+
+        //count计数
+//        long num = stringCollection.stream().filter(s -> s.startsWith("b")).count();
+//        System.out.println(num);
+    }
+
+    public static void testMatch(List<String> stringCollection) {
+        //Match 匹配
+        // 任意匹配
+        boolean anyStartsWithA = stringCollection.stream().anyMatch(s -> s.startsWith("a"));
+        System.out.println(anyStartsWithA);
+        // 全部匹配
+        boolean allStartsWithA = stringCollection.stream().allMatch(s -> s.startsWith("a"));
+        System.out.println(allStartsWithA);
+        // 不匹配
+        boolean noneStartsWithA = stringCollection.stream().noneMatch(s -> s.startsWith("a"));
+        System.out.println(noneStartsWithA);
+    }
+
+    @Test
+    public void testOptional() {
         // Optional 接口
         List<String> collection = new ArrayList<>();
-        // 判断是否存在，存在：true
+        // 判断是否为null，存在：true
         System.out.println(Optional.of(collection).isPresent());
+
         // 判断是否为空，不是空就赋值，是空就赋值else得内容
         collection = null;
         List<String> collectionResult;
         collectionResult = Optional.ofNullable(collection).orElse(Arrays.asList("collection是null"));
         System.out.println(collectionResult);
+
+        // ifPresent[if (value != null) consumer.accept(value)]
+        Optional<String> optional = Optional.of("bam");
+        optional.ifPresent((s) -> System.out.println(s.charAt(0)));
     }
 
     @Test
