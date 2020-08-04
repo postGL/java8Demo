@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  * 最常用的14个Stream：https://www.toutiao.com/i6805004400730309134/
  * JSK1.8文档
  */
-public class StreamTest {
+public class OptionalTest {
     public static void main(String[] args) {
         List<String> stringCollection = new ArrayList<>();
         stringCollection.add("ddd2");
