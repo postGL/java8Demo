@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -68,6 +67,15 @@ public class StreamTest {
 
     @Test
     public void testOptional() {
+        /**
+         * 解读JDK8中的Optional.of和Optional.ofNullable方法的区别和用法
+         * https://blog.csdn.net/qq_40223688/article/details/104264461
+         * Optional.of(T value) 当value为空的时候，会报NullPointerException
+         * 所以，建议使用：
+         *      Optional.ofNullable().orElse(value)
+         *      Optional.ofNullable().orElseThrow(new Exception());
+         */
+
         // Optional 接口
         List<String> collection = new ArrayList<>();
         // 判断是否为null，存在：true

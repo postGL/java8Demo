@@ -1,14 +1,16 @@
 package com.zbs.stream.commonStream;
 
-import com.zbs.test.Person;
 import org.junit.Test;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.*;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
+ * JDK1.8工作中最常用的14个Stream详细小示例
  * description: CommonStreamTest
  * date: 2020/7/31 16:40
  * author: zhangbs
@@ -57,9 +59,208 @@ public class CommonStreamTest {
         }).forEach(System.out::println);
     }
 
+    /**
+     * flatMap 将两个对象进行拼接结合
+     */
     @Test
     public void flatMapTest() {
+        List<Integer> list1 = Arrays.asList(1, 3, 5);
+        List<Integer> list2 = Arrays.asList(2, 4, 6);
 
+        List<List<Integer>> list3 = new ArrayList<>();
+        list3 = Stream.of(list1, list2).collect(Collectors.toList());
+        // [[1,3,5],[2,4,6]]
+        list3.forEach(System.out::println);
+
+        // 将多个集合中的元素合并成一个集合
+        Stream.of(list1, list2).flatMap(list -> list.stream())
+                .collect(Collectors.toList())
+                .forEach(System.out::print);
+
+        System.out.println();
+        System.out.println("-------排序后的结果------");
+        Stream.of(list1, list2).flatMap(list -> list.stream())
+                .collect(Collectors.toList())
+                .stream()
+                .sorted((x, y) -> x - y).forEach(System.out::print);
+        System.out.println();
+        Stream.of(list1, list2).flatMap(list -> list.stream())
+                .collect(Collectors.toList())
+                .stream()
+                .sorted((x, y) -> x.compareTo(y)).forEach(System.out::print);
+    }
+
+    /**
+     * sorted排序
+     */
+    @Test
+    public void sortedTest() {
+        List<String> list = Arrays.asList("c", "e", "a", "d", "b");
+        // Stream<T> sorted(Comparator<? super T> comparator);
+        // int compare(T o1, T o2);
+        list.stream().sorted((s1, s2) -> s1.compareTo(s2)).forEach(System.out::println);
+    }
+
+    /**
+     * distinct,流去重
+     */
+    @Test
+    public void distinctTest() {
+        List<String> list = Arrays.asList("know", "is", "know", "noknow", "is", "noknow");
+        list.stream().distinct().forEach(System.out::print);
+    }
+
+    /**
+     * count 总数量
+     */
+    @Test
+    public void countTest() {
+        List<String> list = Arrays.asList("know", "is", "know", "noknow", "is", "noknow");
+        long count = list.stream().count();
+        System.out.println(count);
+    }
+
+    /**
+     * min
+     * max
+     * “函数”和“排序”功能有很大的关系
+     */
+    @Test
+    public void minTest() {
+        List<Integer> list = Arrays.asList(3, 5, 7, 2, 9, 11);
+        // 2
+//        Optional<Integer> min = list.stream().min((x, y) -> x.compareTo(y));
+        // 2
+//        Optional<Integer> min = list.stream().min((x, y) -> x - y);
+        // 11
+//        Optional<Integer> min = list.stream().min((x, y) -> y - x);
+        // 2
+        Optional<Integer> min = list.stream().max((x, y) -> y - x);
+        min.ifPresent(System.out::println);
+    }
+
+    /**
+     * skip
+     */
+    @Test
+    public void skipTest() {
+        List<String> list = Arrays.asList("a", "b", "c", "d", "e");
+        // Stream<T> skip(long n)
+        // a、b、c、d、e
+        list.stream().skip(0).forEach(System.out::println);
+        System.out.println("==========");
+        // c、d、e
+        list.stream().skip(2).forEach(System.out::println);
+        System.out.println("==========");
+        // c、d
+        list.stream().skip(2).limit(2).forEach(System.out::println);
+    }
+
+    /**
+     * collect  stream--》list
+     * toArray  stream--》Object[]
+     */
+    @Test
+    public void collectTest() {
+        List<String> list = Arrays.asList("a", "b", "c", "d", "e");
+        // Stream -> Collection
+        List<String> collect = list.stream().collect(Collectors.toList());
+
+        // Stream -> Object[]
+        Object[] objects = list.stream().toArray();
+    }
+
+    /**
+     * concat：连接两个流中的元素
+     */
+    @Test
+    public void concatTest() {
+        List<String> list1 = Arrays.asList("a", "b");
+        List<String> list2 = Arrays.asList("c", "d");
+        //[a, b]
+        //[c, d]
+        Stream<List<String>> listStream = Stream.of(list1, list2);
+        listStream.forEach(System.out::println);
+        System.out.println("==============");
+        // a、b、c、d
+        Stream.concat(list1.stream(), list2.stream()).forEach(System.out::println);
+    }
+
+    /**
+     * anyMatch
+     * allMatch
+     */
+    @Test
+    public void matchTest() {
+        // 你给我站住
+        List<String> list = Arrays.asList("you", "give", "me", "stop");
+        // boolean anyMatch(Predicate<? super T> predicate);
+        // parallelStream可以并行计算，速度比stream更快
+        boolean result = list.parallelStream().anyMatch(item -> item.equals("me"));
+        System.out.println(result);
+    }
+
+    /**
+     * anyMatch伪代码
+     * 如果集合中有一个元素满足条件就返回true
+     *
+     * @return
+     */
+    public boolean anyMatch() {
+        List<String> list = Arrays.asList("you", "give", "me", "stop");
+        for (String item : list) {
+            if (item.equals("me")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * reduce 归纳 + 拼接（求和）
+     */
+    @Test
+    public void reduceTest() {
+        Stream<String> stream = Stream.of("you", "give", "me", "stop");
+        // Optional<T> reduce(BinaryOperator<T> accumulator);
+        Optional<String> reduceOption = stream.reduce((x, y) -> x + ",," + y);
+        reduceOption.ifPresent(System.out::println);
+    }
+
+    public static void main(String[] args) {
+        List<BigDecimal> list = Arrays.asList(
+                new BigDecimal("11.11"),
+                new BigDecimal("22.22"),
+                new BigDecimal("33.33")
+        );
+        // 66.66
+        BigDecimal sum = list.stream().reduce(BigDecimal.ZERO, BigDecimal::add);
+        System.out.println(sum);
+    }
+
+    /**
+     * short-circuiting是指：有时候需要在遍历中途停止操作，比如查找第一个满足条件的元素或者limit操作。
+     * 在Stream中short-circuiting操作有：anyMatch、allMatch、noneMatch、findFirst、findAny、limit，
+     * 这些操作在Sink中都有一个变量来判断是否短路，
+     * 比如limit用的是m，match用的是stop，find用的是hasValue。
+     */
+
+    /**
+     * findFirst:返回第一个
+     * findAny：随机返回
+     */
+    @Test
+    public void findTest() {
+        Stream<String> stream = Stream.of("you", "give", "me", "stop");
+        String value = stream.findFirst().get();
+        System.out.println(value);
+
+        System.out.println("================");
+
+        Stream<String> stream2 = Stream.of("you", "give", "me", "stop");
+        String value2 = stream2.findAny().get();
+        System.out.println(value2);
+        System.out.println(IntStream.range(0, 100).parallel().findAny());
     }
 }
 
