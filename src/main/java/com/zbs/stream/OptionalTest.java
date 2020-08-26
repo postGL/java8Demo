@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
@@ -92,6 +94,9 @@ public class OptionalTest {
         optional.ifPresent((s) -> System.out.println(s.charAt(0)));
     }
 
+    /**
+     * Supplier：无输入、有返回
+     */
     @Test
     public void testSupplier() {
         // 示例1
@@ -105,6 +110,9 @@ public class OptionalTest {
         //num1 = 300;
     }
 
+    /**
+     * Consumer：有输入、无返回
+     */
     @Test
     public void testConsumer() {
         // 示例1
@@ -112,5 +120,90 @@ public class OptionalTest {
         // 提前定义好需要返回的指定类型结果，但不运行
         Consumer<Integer> consumer = (num) -> System.out.println((num1 + num));
         consumer.accept(10);
+    }
+
+    /**
+     * Function 有输入、有输出
+     */
+    @Test
+    public void testFunction() {
+        // 示例1
+        // 提前定义好需要返回的指定类型结果，但不运行
+        Function<Integer, Integer> function = num -> {
+            int reNum = num + 1;
+            return reNum;
+        };
+        System.out.println(function.apply(100));
+    }
+
+    @Test
+    public void testPredicate() {
+        // 示例1
+        // 提前定义好需要返回的指定类型结果，但不运行
+        Predicate<Integer> predicate = num -> num > 0;
+        System.out.println(predicate.test(100));
+    }
+
+    /**
+     * Predicate
+     *
+     * @param one
+     * @param two
+     */
+    private void method(Predicate<String> one, Predicate<String> two) {
+        /**
+         * 源码
+         * default Predicate<T> or(Predicate<? super T> other) {
+         *         Objects.requireNonNull(other);
+         *         return (t) -> test(t) || other.test(t);
+         *     }
+         */
+        boolean isVariable = one.or(two).test("helloWorld");
+        System.out.println(isVariable);
+    }
+
+    @Test
+    public void testOr() {
+        method(s -> s.contains("H"), s -> s.contains("W"));
+    }
+
+    /**
+     * andThen 执行完第一步，执行第二步
+     *
+     * @param one
+     * @param two
+     */
+    private void consumeString(Consumer<String> one, Consumer<String> two) {
+        one.andThen(two).accept("Hello");
+    }
+
+    @Test
+    public void testAndThen() {
+        consumeString(
+                // HELLO
+                s -> System.out.println(s.toUpperCase()),
+                // Hello  s并没有因为上一部而改变s的值
+                s -> System.out.println(s)
+        );
+    }
+
+    /**
+     * Compose：按顺序执行多条语句
+     *
+     * @param a
+     * @param function1
+     * @param function2
+     * @return
+     */
+    public int composeTest(int a, Function<Integer, Integer> function1, Function<Integer, Integer> function2) {
+        System.out.println(a);
+        int b = function1.compose(function2).apply(a);
+        System.out.println(a);
+        return b;
+    }
+
+    @Test
+    public void testCompose() {
+        System.out.println(composeTest(2, value -> value * 3, value -> value * value));
     }
 }

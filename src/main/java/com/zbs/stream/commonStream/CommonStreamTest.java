@@ -26,6 +26,8 @@ public class CommonStreamTest {
         Collection<String> strCollection = Arrays
                 .asList("you", "don`t", "bird", "me", ",", "i", "don`t", "bird", "you");
         strCollection.stream().forEach(System.out::println);
+        //foreach 无返回值
+//        strCollection.stream().forEach(s->return s+1;);
     }
 
     /**
@@ -95,7 +97,9 @@ public class CommonStreamTest {
      */
     @Test
     public void sortedTest() {
-        List<String> list = Arrays.asList("c", "e", "a", "d", "b");
+//        List<String> list = Arrays.asList("c", "e", "a", "d", "b");
+        //list是空数组，下边的排序s1，s2也不会报空指针
+        List<String> list = new ArrayList<>();
         // Stream<T> sorted(Comparator<? super T> comparator);
         // int compare(T o1, T o2);
         list.stream().sorted((s1, s2) -> s1.compareTo(s2)).forEach(System.out::println);
