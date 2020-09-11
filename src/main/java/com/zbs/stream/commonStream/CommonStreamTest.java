@@ -44,7 +44,6 @@ public class CommonStreamTest {
         System.out.println("=======分割输出======");
         Consumer<User> consumer = System.out::println;
         for (User user : userList) {
-            //证明filter只是暂时过滤，不改变原userList
             consumer.accept(user);
         }
     }

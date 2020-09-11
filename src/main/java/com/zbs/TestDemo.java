@@ -1,7 +1,9 @@
 package com.zbs;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.function.Consumer;
  */
 public class TestDemo {
 
-    @org.junit.Test
+    @Test
     public void testSplit() {
         List<String> strList = new ArrayList<>();
         ObjectMapper objectMapper = new ObjectMapper();
@@ -32,12 +34,50 @@ public class TestDemo {
         one.andThen(two).accept("Hello");
     }
 
-    @org.junit.Test
+    @Test
     public void testAndThen() {
         consumeString(
                 s -> System.out.println(s.toUpperCase()),
                 s -> System.out.println(s)
         );
     }
+
+    @Test
+    public void testString() {
+//        String str = "[{\"name\":\"单行输入框\",\"defaultLabel\":\"单行输入框\",\"defaultProps\":\"请输入\",\"defaultImportant\":false,\"defaultPrint\":false,\"componentName\":\"textfield\",\"supportSetting\":[\"label\",\"placeholder\",\"required\",\"important\",\"print\"],\"idx\":1}]";
+        // 不会报异常
+        // String str1 = "[]";
+        // 会报异常
+        String str = "";
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<FlowFormField> tableSonComponentList = new ArrayList<>();
+        try {
+            tableSonComponentList = objectMapper.readValue(str,
+                    new TypeReference<List<FlowFormField>>() {
+                    });
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        System.out.println(tableSonComponentList);
+    }
+
+    @Test
+    public void testObjectUtils() {
+        String s2 = "  ";
+        System.out.println(s2.length());
+
+//        ObjectUtils 是指springFrameWork的包
+//        // 是空
+//        String s1 = "";
+//        if (!ObjectUtils.isEmpty(s1)) {
+//            System.out.println("s1不是空");
+//        }
+//        // 不是空
+//        String s2 = "  ";
+//        if (!ObjectUtils.isEmpty(s2)) {
+//            System.out.println("s1不是空");
+//        }
+    }
+
 }
 
