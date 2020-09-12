@@ -79,5 +79,23 @@ public class TestDemo {
 //        }
     }
 
+    /**
+     * replaceAll、replace 必须用新的子浮串接收才能获取新的替换值
+     */
+    @Test
+    public void testReplace() {
+        String str = "2018.05.12.18";
+        String s = str.replaceAll("[\\pP\\pS\\pZ\\pC]", "-");
+        System.out.println(s);
+
+        str.replaceAll("18", "-");
+        System.out.println(str);
+
+        str.replace("18", "-");
+        System.out.println(str);
+
+
+//        System.out.println(str.contains("."));
+    }
 }
 
