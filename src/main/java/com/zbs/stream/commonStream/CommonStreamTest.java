@@ -31,7 +31,7 @@ public class CommonStreamTest {
     }
 
     /**
-     * filter 过滤
+     * filter 过滤【filter 过滤对象必须新对象接收，否则原对象是没有被更改的】
      */
     @Test
     public void filterTest() {
@@ -41,15 +41,22 @@ public class CommonStreamTest {
                 new User(3L, "liangliang", 17)
         );
         userList.stream().filter(user -> user.getAge() > 18).forEach(System.out::println);
+        List<User> userList2 = userList.stream().filter(user -> user.getAge() > 18).collect(Collectors.toList());
+
         System.out.println("=======分割输出======");
         Consumer<User> consumer = System.out::println;
         for (User user : userList) {
             consumer.accept(user);
         }
+
+        System.out.println("=======分割输出======");
+        for (User user : userList2) {
+            consumer.accept(user);
+        }
     }
 
     /**
-     * map 映射对象，更改对象
+     * map 映射对象，更改对象【map 映射转换对象必须新对象接收，否则原对象是没有被更改的】
      */
     @Test
     public void mapTest() {
@@ -58,6 +65,10 @@ public class CommonStreamTest {
             str += "_zbs";
             return str.toUpperCase();
         }).forEach(System.out::println);
+        System.out.println("========map后的list=======");
+        for (String str : list) {
+            System.out.println(str);
+        }
     }
 
     /**
