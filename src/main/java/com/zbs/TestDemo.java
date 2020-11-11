@@ -3,6 +3,7 @@ package com.zbs;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zbs.test.User;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -44,16 +45,13 @@ public class TestDemo {
 
     @Test
     public void testString() {
-//        String str = "[{\"name\":\"单行输入框\",\"defaultLabel\":\"单行输入框\",\"defaultProps\":\"请输入\",\"defaultImportant\":false,\"defaultPrint\":false,\"componentName\":\"textfield\",\"supportSetting\":[\"label\",\"placeholder\",\"required\",\"important\",\"print\"],\"idx\":1}]";
-
         // String str1 = "[]"; // 不会报异常
-
         String str = ""; // 会报异常
         ObjectMapper objectMapper = new ObjectMapper();
-        List<FlowFormField> tableSonComponentList = new ArrayList<>();
+        List<User> tableSonComponentList = new ArrayList<>();
         try {
             tableSonComponentList = objectMapper.readValue(str,
-                    new TypeReference<List<FlowFormField>>() {
+                    new TypeReference<List<User>>() {
                     });
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -96,7 +94,6 @@ public class TestDemo {
 
 //        System.out.println(str.contains("."));
     }
-
 
 }
 
