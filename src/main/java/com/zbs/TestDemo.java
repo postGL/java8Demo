@@ -45,10 +45,10 @@ public class TestDemo {
     @Test
     public void testString() {
 //        String str = "[{\"name\":\"单行输入框\",\"defaultLabel\":\"单行输入框\",\"defaultProps\":\"请输入\",\"defaultImportant\":false,\"defaultPrint\":false,\"componentName\":\"textfield\",\"supportSetting\":[\"label\",\"placeholder\",\"required\",\"important\",\"print\"],\"idx\":1}]";
-        // 不会报异常
-        // String str1 = "[]";
-        // 会报异常
-        String str = "";
+
+        // String str1 = "[]"; // 不会报异常
+
+        String str = ""; // 会报异常
         ObjectMapper objectMapper = new ObjectMapper();
         List<FlowFormField> tableSonComponentList = new ArrayList<>();
         try {
@@ -93,7 +93,6 @@ public class TestDemo {
 
         str.replace("18", "-");
         System.out.println(str);
-
 
 //        System.out.println(str.contains("."));
     }

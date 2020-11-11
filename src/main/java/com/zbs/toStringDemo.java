@@ -11,7 +11,7 @@ public class toStringDemo {
         @Override
         public String toString() {
             System.out.print("I ");
-            return "";
+            return "返回值";
         }
     }
 
