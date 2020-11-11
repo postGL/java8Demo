@@ -1,5 +1,7 @@
 package com.zbs.test;
 
+import java.time.LocalDate;
+
 /**
  * description: Person
  * date: 2020/7/10 10:09
@@ -9,6 +11,7 @@ package com.zbs.test;
 public class Person {
     String firstName;
     String lastName;
+    LocalDate birthday;
 
 //    public Person() {
 //        System.out.println("我的构造。。。");

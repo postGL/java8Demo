@@ -3,7 +3,7 @@ package com.zbs;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zbs.test.User;
+import com.zbs.stream.commonStream.User;
 import org.junit.Test;
 
 import java.util.ArrayList;
