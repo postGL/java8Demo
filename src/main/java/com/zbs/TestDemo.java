@@ -7,7 +7,9 @@ import com.zbs.stream.commonStream.User;
 import org.junit.Test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -93,6 +95,33 @@ public class TestDemo {
         System.out.println(str);
 
 //        System.out.println(str.contains("."));
+    }
+
+    @Test
+    public void testMapToString() {
+        Map<String, String> map = new HashMap<>();
+        map.put("1", "sdff");
+        map.put("2", "dasd");
+        // {1=sdff, 2=dasd}
+        System.out.println(map.toString());
+    }
+
+    @Test
+    public void testSplitDemo() {
+        String str = "55.99";
+        String[] split = str.split("");
+        // length = 5
+        System.out.println(split.length);
+    }
+
+    @Test
+    public void Test1() {
+        String sort = "1,2,3,4,5,";
+        if (sort.endsWith(",")) {
+            sort = sort.substring(0, sort.length() - 1);
+        }
+        // 1,2,3,4,5
+        System.out.println(sort);
     }
 
 }
