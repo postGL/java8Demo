@@ -6,7 +6,7 @@ package com.zbs;
  * author: zhangbs
  * version: 1.0
  */
-public class toStringDemo {
+public class ToStringDemo {
     static class A {
         @Override
         public String toString() {
