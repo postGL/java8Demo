@@ -6,7 +6,7 @@ package com.zbs.interfaceExample;
  * author: zhangbs
  * version: 1.0
  */
-public abstract class abstractExample {
+public abstract class AbstractExample {
 
     /**
      * 非抽象方法

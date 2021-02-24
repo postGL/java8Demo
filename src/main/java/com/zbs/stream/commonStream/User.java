@@ -18,4 +18,22 @@ public class User {
     private String phone;
     private String address;
 
+    public User() {
+    }
+
+    public User(Long id, String userName, Integer userId) {
+        this.id = id;
+        this.userName = userName;
+        this.userId = userId;
+    }
+
+    public User(Long id, String userName, Integer userId, Integer age, Integer gender, String phone, String address) {
+        this.id = id;
+        this.userName = userName;
+        this.userId = userId;
+        this.age = age;
+        this.gender = gender;
+        this.phone = phone;
+        this.address = address;
+    }
 }
