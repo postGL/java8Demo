@@ -23,8 +23,8 @@ public class CompressPdfByItext {
 
     public static void main(String[] args) throws IOException, DocumentException {
         long a = System.currentTimeMillis();
-        new CompressPdfByItext().manipulatePdf("D:/xiao.pdf",
-                "D:/itext_xiao.pdf");
+        new CompressPdfByItext().manipulatePdf("D:/文件压缩测试/123.pdf",
+                "D:/文件压缩测试/123_yasuo.pdf");
         long b = System.currentTimeMillis();
         int c = (int) ((b - a) / 1000);
         System.out.println(c + "秒");
@@ -65,6 +65,7 @@ public class CompressPdfByItext {
                 if (bi == null) {
                     continue;
                 }
+                //todo 考虑分辨率固定，不是调节系数
                 int width = (int) (bi.getWidth() * FACTOR);
                 int height = (int) (bi.getHeight() * FACTOR);
                 BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
@@ -73,7 +74,7 @@ public class CompressPdfByItext {
                 g.drawRenderedImage(bi, at);
                 ByteArrayOutputStream imgBytes = new ByteArrayOutputStream();
                 //判断文件流的大小，超过500k的才进行压缩，否则不进行压缩
-                if(img.getData().getDataBuffer().getSize()>512000){
+                if (img.getData().getDataBuffer().getSize() > 512000) {
                     ImageIO.write(img, "JPG", imgBytes);
                     stream.clear();
                     stream.setData(imgBytes.toByteArray(), false, PRStream.BEST_COMPRESSION);
@@ -85,7 +86,7 @@ public class CompressPdfByItext {
                     stream.put(PdfName.HEIGHT, new PdfNumber(height));
                     stream.put(PdfName.BITSPERCOMPONENT, new PdfNumber(8));
                     stream.put(PdfName.COLORSPACE, PdfName.DEVICERGB);
-                }else {
+                } else {
                     ImageIO.write(img, "JPG", imgBytes);
                 }
             }
