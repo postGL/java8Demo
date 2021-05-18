@@ -6,10 +6,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zbs.stream.commonStream.User;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.util.*;
 import java.util.function.Consumer;
 
 /**
@@ -122,6 +120,23 @@ public class TestDemo {
         }
         // 1,2,3,4,5
         System.out.println(sort);
+    }
+
+    @Test
+    public void Test2() {
+        System.out.println(LocalDate.now().plusDays(-1));
+    }
+
+    @Test
+    public void Test3() {
+        String ss = "333";
+        System.out.println(Optional.ofNullable(ss).orElse(test4(ss)));
+
+    }
+
+    private String test4(String ss) {
+        System.out.println("是否执行了，" + ss);
+        return "dddd";
     }
 
 }
